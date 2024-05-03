@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #638CB8;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        .input-field::placeholder {
+            color: #d3d3d3;
+        }
+
+        .submit-button {
+            background-color: #6BA3E8;
+        }
+
+        .center-column {
+            width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-row {
+            background-color: #906abd;
+            margin: 10px 0;
+            padding: 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-update {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .completed-task {
+            text-decoration: line-through;
+        }
+
+        .update-heading {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="center-column">
+    <h3 class="update-heading">Update Task</h3>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        {{ form }}
+        <input class="btn btn-info submit-button" type="submit" name="Update Task">
+    </form>
+
+    <div class="todo-list">
+        {% for task in tasks %}
+            <div class="item-row">
+                <a class="btn btn-sm btn-update" href="{% url 'update_task' task.id %}">Update</a>
+                <a class="btn btn-sm btn-delete" href="{% url 'delete' task.id %}">Delete</a>
+
+                {% if task.complete %}
+                    <span class="completed-task">{{ task }}</span>
+                {% else %}
+                    <span>{{ task }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
